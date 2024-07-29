@@ -66,13 +66,13 @@ async def view_menu_collaborator(page: ft.Page):
         return view
     
     async def create_collaborator(e):
-        page.go("/register_collaborator")
+        page.go("/registrar-colaborador")
 
     async def check_collaborator(e):
         page.go('/verificar-colaborador')
 
     async def menu_day_off(e):
-        print('create')
+        page.go('/menu-folga')
     
     async def back_button(e):
         page.go('/menu')

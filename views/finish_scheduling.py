@@ -10,7 +10,7 @@ from utils.firebase_config import get_firestore_client
 from utils.interface import (
     createTitle, createSubTitle, createElevatedButton, 
     createFooterText, createInputTextField, createMainColumn,
-    createImageLogo, createDropdown, createDatePicker, createCallDatePicker
+    createImageLogo, createDropdown, createDatePickerForScheduling, createCallDatePicker
 )
 from utils.config import COLOR_BORDER_COLOR_ERROR, IMG_LOGO
 from utils.client_storage import loadStoredUser, loadSchedulingFinish

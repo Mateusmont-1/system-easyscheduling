@@ -10,7 +10,7 @@ from utils.firebase_config import get_firestore_client
 from utils.interface import (
     createTitle, createSubTitle, createElevatedButton, 
     createFooterText, createInputTextField, createMainColumn,
-    createImageLogo, createDropdown, createDatePicker, createCallDatePicker
+    createImageLogo, createDropdown, createDatePickerForScheduling, createCallDatePicker
 )
 from utils.config import COLOR_BORDER_COLOR_ERROR, IMG_LOGO
 from utils.client_storage import loadStoredUser, loadSchedulingEdit, removeSchedulingEdit
@@ -50,7 +50,7 @@ class UserWidget(ft.Container):
         self.field_name_text = createInputTextField('Informe seu nome!', False, self.name, set_read_only=True)
         self.field_phone_text = createInputTextField('Informe seu telefone!', False, self.phone, set_read_only=True)
         self.service_choose = createDropdown("Escolha o Serviço", self.func5, set_value=self.agendamento_data[self.agendamento_id]['servico_id'])
-        self.date_picker = createDatePicker(self.func)
+        self.date_picker = createDatePickerForScheduling(self.func)
         self.day_choose = createCallDatePicker("Escolha o dia novamente", self.date_picker,set_visible=True)
         self.hour_choose = createDropdown("Escolha o Hórario", self.func2, False)
         self.collaborator_choose = createDropdown("Escolha o(a) atendente", None, False)

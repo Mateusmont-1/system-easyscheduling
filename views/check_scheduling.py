@@ -10,7 +10,7 @@ from utils.firebase_config import get_firestore_client
 from utils.interface import (
     createTitle, createSubTitle, createElevatedButton, 
     createFooterText, createInputTextField, createMainColumn,
-    createImageLogo, createDropdown, createDatePicker, createCallDatePicker,
+    createImageLogo, createDropdown, createDatePickerForScheduling, createCallDatePicker,
     createDataTable
 )
 from utils.config import COLOR_BORDER_COLOR_ERROR, IMG_LOGO, COLOR_TEXT_IN_FIELD
@@ -41,7 +41,7 @@ class UserWidget(ft.Container):
         self.collaborator_documents = dict()
         self.collaborator_choose = createDropdown("Escolha o(a) atendente", self.func)
         self.data_table = createDataTable(False, ["Data/hora", "Status", "Nome do cliente", "Serviço agendado"])
-        self.date_picker = createDatePicker(self.func2)
+        self.date_picker = createDatePickerForScheduling(self.func2)
         self.day_choose = createCallDatePicker("Escolha o dia", self.date_picker)
         self.no_scheduling = createTitle("Não possui agendamentos", False)
 

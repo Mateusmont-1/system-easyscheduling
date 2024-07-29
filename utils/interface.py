@@ -8,9 +8,12 @@ from utils.config import (
     COLOR_BACKGROUND_TEXT_FIELD, COLOR_TEXT_IN_DROPDOWN
 )
 
-def createInputTextField(text: str, hide: bool=False, default_value: str = "", submit=None, width_field=275, type="email", size=16, set_read_only=False):
+def createInputTextField(text: str, hide: bool=False, default_value: str = "",
+                         submit=None, width_field=275, type="email", size=16, 
+                         set_read_only=False, set_visible=True):
     text_field = ft.TextField(
         height=48,
+        visible=set_visible,
         width=width_field,
         keyboard_type=type,
         read_only=set_read_only,
@@ -311,12 +314,22 @@ def createDropdown(text, func=None, set_visible=True, set_value=None):
             content=dropdown,
             )
 
-def createDatePicker(func):
+def createDatePickerForScheduling(func, set_days=15):
     return ft.Container(
             alignment=ft.alignment.center,
             content=ft.DatePicker(
                 first_date=datetime.datetime.now(),
-                last_date=datetime.datetime.now() + datetime.timedelta(days=15),
+                last_date=datetime.datetime.now() + datetime.timedelta(days=set_days),
+                on_change=partial(func),
+            )
+            )
+
+def createDatePickerForReport(func):
+    return ft.Container(
+            alignment=ft.alignment.center,
+            content=ft.DatePicker(
+                first_date=datetime.datetime(year=2024, month=6, day=1),
+                last_date=datetime.datetime.now(),
                 on_change=partial(func),
             )
             )

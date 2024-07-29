@@ -28,6 +28,9 @@ from views.edit_product import view_edit_product
 from views.register_collaborator import view_register_collaborator
 from views.check_collaborator import view_check_collaborator
 from views.edit_collaborator import view_edit_collaborator
+from views.menu_day_off import view_menu_day_off
+from views.create_day_off import view_create_day_off
+from views.check_day_off import view_check_day_off
 
 # Dicionário de rotas
 ROUTES = {
@@ -41,6 +44,7 @@ ROUTES = {
     "/menu-colaborador": ("Menu colaborador", view_menu_collaborator),
     "/menu-relatorio": ("Menu relatorio", view_menu_report),
     "/menu-caixa": ("Menu caixa", view_menu_box),
+    "/menu-folga": ("Menu folga", view_menu_day_off),
     "/criar-agendamento": ("Agendamento", view_create_scheduling),
     "/verificar-meus-agendamento": ("Agendamentos", view_check_my_scheduling),
     "/editar-agendamento": ("Editar agendamento", view_edit_scheduling),
@@ -55,6 +59,8 @@ ROUTES = {
     "/registrar-colaborador": ("Cadastro colaborador", view_register_collaborator),
     "/verificar-colaborador": ("Verificar colaboradores", view_check_collaborator),
     "/editar-colaborador": ("Editar colaborador", view_edit_collaborator),
+    "/cadastrar-folga": ("Cadastrar folga", view_create_day_off),
+    "/verificar-folga": ("Verificar folga", view_check_day_off),
 }
 
 async def main(page: ft.Page):
