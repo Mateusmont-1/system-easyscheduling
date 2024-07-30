@@ -106,7 +106,7 @@ async def view_menu_box(page: ft.Page):
         pass
         
     async def _create_expenses(e):
-        pass
+        page.go('/cadastrar-despesa')
     
     async def _expenser(e):
         page.go('/menu-despesa')
