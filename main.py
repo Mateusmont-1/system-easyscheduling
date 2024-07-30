@@ -40,6 +40,7 @@ from views.check_category import view_check_category
 from views.edit_category import view_edit_category
 from views.check_expense import view_check_expense
 from views.create_expense import view_create_expense
+from views.edit_expense import view_edit_expense
 
 # Dicionário de rotas
 ROUTES = {
@@ -79,6 +80,7 @@ ROUTES = {
     "/editar-categoria": ("Editar categoria", view_edit_category),
     "/verificar-despesa": ("Verificar despesa", view_check_expense),
     "/cadastrar-despesa": ("Cadastrar despesa", view_create_expense),
+    "/editar-despesa": ("Editar despesa", view_edit_expense)
 }
 
 async def main(page: ft.Page):

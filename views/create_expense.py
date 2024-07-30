@@ -113,13 +113,9 @@ async def view_create_expense(page: ft.Page):
     def on_date_change(e=None):
         # Torna visíveis os campos relacionados à despesa
         _expense_.category_expense.visible = True
-        # _expense_.category_expense.update()
         _expense_.field_description_text.content.visible = True
-        # _expense_.field_description_text.update()
         _expense_.field_price_text.content.visible = True
-        # _expense_.field_price_text.update()
         _expense_.create_expense.visible = True
-        # _expense_.create_expense.content.update()
         _expense_.update()
 
         # Formata a data selecionada
