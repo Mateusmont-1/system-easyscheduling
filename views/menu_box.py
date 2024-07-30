@@ -109,7 +109,7 @@ async def view_menu_box(page: ft.Page):
         pass
     
     async def _expenser(e):
-        pass
+        page.go('/menu-despesa')
     
     async def _back_button(e):
         page.go('/menu')

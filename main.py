@@ -34,6 +34,8 @@ from views.check_day_off import view_check_day_off
 from views.check_report_collaborator import view_check_report_collaborator
 from views.check_report_monthly import view_check_report_monthly
 from views.check_report_monthly_expense import view_check_report_monthly_expense
+from views.menu_expense import view_menu_expense
+from views.create_category import view_create_category
 
 # Dicionário de rotas
 ROUTES = {
@@ -48,6 +50,7 @@ ROUTES = {
     "/menu-relatorio": ("Menu relatorio", view_menu_report),
     "/menu-caixa": ("Menu caixa", view_menu_box),
     "/menu-folga": ("Menu folga", view_menu_day_off),
+    "/menu-despesa": ("Menu despesa", view_menu_expense),
     "/criar-agendamento": ("Agendamento", view_create_scheduling),
     "/verificar-meus-agendamento": ("Agendamentos", view_check_my_scheduling),
     "/editar-agendamento": ("Editar agendamento", view_edit_scheduling),
@@ -66,7 +69,8 @@ ROUTES = {
     "/verificar-folga": ("Verificar folga", view_check_day_off),
     "/relatorio-colaborador": ("Relátorio colaborador", view_check_report_collaborator),
     "/relatorio-mensal": ("Receita mensal", view_check_report_monthly),
-    "/relatorio-despesa": ("Despesa mensal", view_check_report_monthly_expense)
+    "/relatorio-despesa": ("Despesa mensal", view_check_report_monthly_expense),
+    "/cadastrar-categoria": ("Cadastrar categoria", view_create_category),
 }
 
 async def main(page: ft.Page):
