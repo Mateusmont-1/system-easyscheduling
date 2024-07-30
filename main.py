@@ -33,6 +33,7 @@ from views.create_day_off import view_create_day_off
 from views.check_day_off import view_check_day_off
 from views.check_report_collaborator import view_check_report_collaborator
 from views.check_report_monthly import view_check_report_monthly
+from views.check_report_monthly_expense import view_check_report_monthly_expense
 
 # Dicionário de rotas
 ROUTES = {
@@ -64,7 +65,8 @@ ROUTES = {
     "/cadastrar-folga": ("Cadastrar folga", view_create_day_off),
     "/verificar-folga": ("Verificar folga", view_check_day_off),
     "/relatorio-colaborador": ("Relátorio colaborador", view_check_report_collaborator),
-    "/relatorio-mensal": ("Receita mensal", view_check_report_monthly)
+    "/relatorio-mensal": ("Receita mensal", view_check_report_monthly),
+    "/relatorio-despesa": ("Despesa mensal", view_check_report_monthly_expense)
 }
 
 async def main(page: ft.Page):

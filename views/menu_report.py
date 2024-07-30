@@ -109,7 +109,7 @@ async def view_menu_report(page: ft.Page):
         page.go('/relatorio-mensal')
     
     async def report_expense(e):
-        pass
+        page.go('/relatorio-despesa')
     
     async def back_button(e):
         page.go('/menu')
