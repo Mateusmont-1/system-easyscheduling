@@ -37,6 +37,7 @@ from views.check_report_monthly_expense import view_check_report_monthly_expense
 from views.menu_expense import view_menu_expense
 from views.create_category import view_create_category
 from views.check_category import view_check_category
+from views.edit_category import view_edit_category
 
 # Dicionário de rotas
 ROUTES = {
@@ -72,7 +73,8 @@ ROUTES = {
     "/relatorio-mensal": ("Receita mensal", view_check_report_monthly),
     "/relatorio-despesa": ("Despesa mensal", view_check_report_monthly_expense),
     "/cadastrar-categoria": ("Cadastrar categoria", view_create_category),
-    "/verificar-categoria": ("Verificar categoria", view_check_category)
+    "/verificar-categoria": ("Verificar categoria", view_check_category),
+    "/editar-categoria": ("Editar categoria", view_edit_category),
 }
 
 async def main(page: ft.Page):

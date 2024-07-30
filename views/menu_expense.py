@@ -80,7 +80,7 @@ async def view_menu_expense(page: ft.Page):
         page.go("/menu")
     
     _menu_ = UserWidget(
-        "Serviço!",
+        "Despesa!",
         _create_category,
         _check_category,
         _check_expense,

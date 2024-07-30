@@ -148,7 +148,7 @@ async def view_check_category(page: ft.Page):
 
 
     _category_ = UserWidget(
-        "Serviços!",
+        "Categorias!",
         "Voltar",
         category_ref,
         show_details,
