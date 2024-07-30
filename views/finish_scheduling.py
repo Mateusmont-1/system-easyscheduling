@@ -13,7 +13,7 @@ from utils.interface import (
     createImageLogo, createDropdown, createDatePickerForScheduling, createCallDatePicker
 )
 from utils.config import COLOR_BORDER_COLOR_ERROR, IMG_LOGO
-from utils.client_storage import loadStoredUser, loadSchedulingFinish
+from utils.client_storage import loadStoredUser, loadSchedulingFinish, removeSchedulingFinish
 from utils import whatsapp
 from utils.whatsapp import TELEFONE_CONTACT
 from utils import scheduling_db
@@ -283,6 +283,7 @@ async def view_finish_scheduling(page: ft.Page):
                 price_total)
         
             finish.finish_scheduling()
+            await removeSchedulingFinish(page)
             texto = "Agendamento finalizado!"
             await transition.main(page, texto, None)
 
