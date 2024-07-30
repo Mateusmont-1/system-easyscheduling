@@ -119,7 +119,6 @@ async def view_check_service(page: ft.Page):
     async def button_editar_servico(e):
         close_dialog()
         await asyncio.sleep(0.1)
-        print('teste')
         encrypt_service = encryptUser(data_service)
         await setServiceEdit(page, encrypt_service)
         page.go('/editar-servico')

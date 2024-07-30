@@ -76,7 +76,6 @@ async def view_register_client(page: ft.Page):
 
     # Função assíncrona para voltar à página de login
     async def _back_button(e):
-        print("back")
         page.go("/")
 
     async def _register_client(e):
