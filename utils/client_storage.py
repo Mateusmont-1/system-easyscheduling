@@ -169,3 +169,22 @@ async def loadCategoryEdit(page:ft.page):
         return None
     stored_category = decryptedUser(encrypt_category)
     return stored_category
+
+async def setExpenseEdit(page: ft.Page, service):
+    await page.client_storage.set_async(f"expense{FLET_PATH}", service)
+
+async def getExpenseEdit(page: ft.Page):
+    return await page.client_storage.get_async(f"expense{FLET_PATH}")
+
+async def removeExpenseEdit(page: ft.Page):
+    expense = await getExpenseEdit(page)
+    if expense is not None:
+        await page.client_storage.remove_async(f"expense{FLET_PATH}")
+
+async def loadCategoryEdit(page:ft.page):
+    encrypt_expense = await getExpenseEdit(page)
+    # Se nao possuir usuario autenticado
+    if encrypt_expense is None:
+        return None
+    stored_expense = decryptedUser(encrypt_expense)
+    return stored_expense

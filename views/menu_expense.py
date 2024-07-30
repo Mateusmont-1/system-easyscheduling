@@ -74,7 +74,7 @@ async def view_menu_expense(page: ft.Page):
         page.go('/verificar-categoria')
 
     async def _check_expense(e):
-        pass
+        page.go('/verificar-despesa')
 
     async def _back_button(e):
         page.go("/menu")
