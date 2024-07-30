@@ -31,6 +31,7 @@ from views.edit_collaborator import view_edit_collaborator
 from views.menu_day_off import view_menu_day_off
 from views.create_day_off import view_create_day_off
 from views.check_day_off import view_check_day_off
+from views.check_report_collaborator import view_check_report_collaborator
 
 # Dicionário de rotas
 ROUTES = {
@@ -61,6 +62,7 @@ ROUTES = {
     "/editar-colaborador": ("Editar colaborador", view_edit_collaborator),
     "/cadastrar-folga": ("Cadastrar folga", view_create_day_off),
     "/verificar-folga": ("Verificar folga", view_check_day_off),
+    "/relatorio-colaborador": ("Relátorio colaborador", view_check_report_collaborator),
 }
 
 async def main(page: ft.Page):

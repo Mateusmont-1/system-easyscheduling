@@ -103,7 +103,7 @@ async def view_menu_report(page: ft.Page):
         return view
     
     async def report_barber(e):
-        pass
+        page.go('/relatorio-colaborador')
         
     async def report_month(e):
         pass

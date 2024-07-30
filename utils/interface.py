@@ -314,15 +314,15 @@ def createDropdown(text, func=None, set_visible=True, set_value=None):
             content=dropdown,
             )
 
-def createDatePickerForScheduling(func, set_days=15):
+def createDatePickerForScheduling(func, set_days=15, set_days_befote=0):
     return ft.Container(
             alignment=ft.alignment.center,
             content=ft.DatePicker(
-                first_date=datetime.datetime.now(),
+                first_date=datetime.datetime.now() - datetime.timedelta(days=set_days_befote),
                 last_date=datetime.datetime.now() + datetime.timedelta(days=set_days),
                 on_change=partial(func),
             )
-            )
+        )
 
 def createDatePickerForReport(func):
     return ft.Container(
@@ -332,7 +332,7 @@ def createDatePickerForReport(func):
                 last_date=datetime.datetime.now(),
                 on_change=partial(func),
             )
-            )
+        )
 
 def createCallDatePicker(text, ref_date_picker,set_visible=False,):
     return ft.Container(

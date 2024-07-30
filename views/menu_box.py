@@ -23,7 +23,7 @@ class UserWidget(ft.Container):
         self.user = user
 
         # Criando as variaveis para aparecer ou não o botão na interface
-        self._visible_create_service = False
+        self._visible_create_scheduling = False
         self._visible_create_expenses = False
         self._visible_expenses = False
         # Botão de retornar é visivel para todos os tipos de usuario
@@ -32,18 +32,18 @@ class UserWidget(ft.Container):
         # De acordo com o perfil do usuario define a visibilidade dos botões que ele possui acesso 
         # como True
         if self.user['funcaoID'] == "colaborador":
-            self._visible_create_service = True
+            self._visible_create_scheduling = True
             
         elif self.user['funcaoID'] == "administrador":
-            self._visible_create_service = True
+            self._visible_create_scheduling = True
             self._visible_create_expenses = True
             self._visible_expenses = True
             
         else:
             ...
 
-        self._create_service = createButtonWithVisibility("Colaborador", func=self.func, visible=self._visible_create_service)
-        self._create_expenses = createButtonWithVisibility("Mensal", func=self.func2, visible=self._visible_create_expenses)
+        self._create_scheduling = createButtonWithVisibility("Adicionar atendimento", func=self.func, visible=self._visible_create_scheduling)
+        self._create_expenses = createButtonWithVisibility("Adicionar despesas", func=self.func2, visible=self._visible_create_expenses)
         self._expenses = createButtonWithVisibility("Despesas", func=self.func3, visible=self._visible_expenses)
         self._back_ = createButtonWithVisibility("Voltar", func=self.func4, visible=self._visible_back_)
         
@@ -59,7 +59,7 @@ class UserWidget(ft.Container):
                     ft.Column(
                         alignment=ft.MainAxisAlignment.CENTER,
                         controls=[
-                            ft.Row(alignment="center",controls=[self._create_service]),
+                            ft.Row(alignment="center",controls=[self._create_scheduling]),
                             ft.Row(alignment="center", controls=[self._create_expenses]),
                             ft.Row(alignment="center", controls=[self._expenses]),
                             ft.Row(alignment="center", controls=[self._back_]),
@@ -77,7 +77,7 @@ class UserWidget(ft.Container):
                     ft.Column(
                         alignment=ft.MainAxisAlignment.CENTER,
                         controls=[
-                            ft.Row(alignment="center",controls=[self._create_service]),
+                            ft.Row(alignment="center",controls=[self._create_scheduling]),
                             ft.Row(alignment="center", controls=[self._back_]),
                         ]),
                     ft.Container(padding=5),
