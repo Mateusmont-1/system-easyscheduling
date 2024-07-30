@@ -19,8 +19,6 @@ class TransitionWidget(ft.Container):
         )
 
 async def main(page: ft.Page, texto: str = None, tela_inicial: bool = None):
-    # Navega para a página de transição
-    # page.go("/transition")
     
     # Cria o conteúdo da transição
     _transicao_ = TransitionWidget(texto)

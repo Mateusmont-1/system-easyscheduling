@@ -142,7 +142,8 @@ async def view_check_product(page: ft.Page):
         dialog.open = False
         page.update()
 
-    page.dialog = dialog
+    page.overlay.append(dialog)
+    # page.dialog = dialog
     
     # Função para retornar ao menu principal
     async def back_button(e):
