@@ -150,3 +150,22 @@ async def loadCollaboratorEdit(page:ft.page):
         return None
     stored_collaborator = decryptedUser(encrypt_collaborator)
     return stored_collaborator
+
+async def setCategoryEdit(page: ft.Page, service):
+    await page.client_storage.set_async(f"category{FLET_PATH}", service)
+
+async def getCategoryEdit(page: ft.Page):
+    return await page.client_storage.get_async(f"category{FLET_PATH}")
+
+async def removeCategoryEdit(page: ft.Page):
+    category = await getCategoryEdit(page)
+    if category is not None:
+        await page.client_storage.remove_async(f"category{FLET_PATH}")
+
+async def loadCategoryEdit(page:ft.page):
+    encrypt_category = await getCategoryEdit(page)
+    # Se nao possuir usuario autenticado
+    if encrypt_category is None:
+        return None
+    stored_category = decryptedUser(encrypt_category)
+    return stored_category

@@ -71,7 +71,7 @@ async def view_menu_expense(page: ft.Page):
         # tela_cadastro_servico.main(page, user)
         
     async def _check_category(e):
-        pass
+        page.go('/verificar-categoria')
 
     async def _check_expense(e):
         pass
