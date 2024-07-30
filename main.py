@@ -2,7 +2,7 @@ import flet as ft
 import datetime
 import os
 
-from utils.config import COLOR_BACKGROUND_PAGE
+from utils.config import COLOR_BACKGROUND_PAGE, FLET_PATH
 from utils.interface import createMainColumn, page_resize_on_event
 from views.home import view_home
 from views.register_client import view_register_client
@@ -122,4 +122,5 @@ async def main(page: ft.Page):
     page.go(page.route)
 
 if __name__ == "__main__":
-    ft.app(target=main, assets_dir="assets", port=8080, view=ft.WEB_BROWSER)
+    
+    ft.app(target=main, assets_dir="assets", port=8080, view=ft.WEB_BROWSER, name=FLET_PATH)
