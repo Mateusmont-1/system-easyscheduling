@@ -10,7 +10,8 @@ from utils.firebase_config import get_firestore_client
 from utils.interface import (
     createTitle, createSubTitle, createElevatedButton, 
     createFooterText, createInputTextField, createMainColumn,
-    createImageLogo, createDropdown, createDatePickerForScheduling, createCallDatePicker
+    createImageLogo, createDropdown, createDatePickerForScheduling, createCallDatePicker,
+    createButtonWithVisibility
 )
 from utils.config import COLOR_BORDER_COLOR_ERROR, IMG_LOGO
 from utils.client_storage import loadStoredUser, loadSchedulingFinish
@@ -24,40 +25,35 @@ class UserWidget(ft.Container):
     def __init__(
         self,
         title:str,
-        scheduling_id,   
-        dict_scheduling,
         product_ref,
         service_ref,
         collaborator_ref,
         func1,
         func2,
         func3,
+        func4,
         ):
         super().__init__()
         self.title = title
-        self.scheduling_id = scheduling_id
-        self.dict_scheduling = dict_scheduling[scheduling_id]
         self.product_ref = product_ref
         self.service_ref = service_ref
         self.collaborator_ref = collaborator_ref
         self.func = func1
         self.func2 = func2
         self.func3 = func3
+        self.func4 = func4
         
-        self.name = self.dict_scheduling['nome']
-        self.phone = self.dict_scheduling['telefone']
-        self.data = f"{self.dict_scheduling['data']}"
-        self.time = self.dict_scheduling['horario']
-        self.price_service = self.dict_scheduling['preco_servico']
-        self.service = self.dict_scheduling['servico_id']
-        self.collaborator_id = self.dict_scheduling['colaborador_id']
-        self.data_time = f'{self.data} as {self.time}'
+        self.collaborator_id = ""
+        self.service = dict()
         self.service_dict = {}
         self.product_dict = {}
         self.price_products = 0.0
 
-        self.service_choose = createDropdown("Escolha o Serviço", self.func2, set_value=self.service)
-        self.service_choose2 = createDropdown("Escolha o Serviço", self.func2)
+        self.date_picker = createDatePickerForScheduling(self.func4, set_days=1, set_days_before=31)
+        self.day_choose = createCallDatePicker("Escolha o dia", self.date_picker, True)
+
+        self.service_choose = createDropdown("Escolha o Serviço", self.func2, set_visible=False)
+        self.service_choose2 = createDropdown("Escolha o Serviço", self.func2, set_visible=False)
         self.service_choose3 = createDropdown("Escolha o Serviço", self.func2, set_visible=False)
         self.service_choose4 = createDropdown("Escolha o Serviço", self.func2, set_visible=False)
         self.service_choose5 = createDropdown("Escolha o Serviço", self.func2, set_visible=False)
@@ -92,7 +88,7 @@ class UserWidget(ft.Container):
 
                 self.service_dict[_service_id] = _service_data
 
-        self.collaborator_choose = createDropdown("Escolha o(a) atendente", set_value=self.collaborator_id)
+        self.collaborator_choose = createDropdown("Escolha o(a) atendente", set_visible=False)
 
         for _collaborator in self.collaborator_ref:
             collaborator = self.collaborator_choose.content
@@ -102,7 +98,7 @@ class UserWidget(ft.Container):
                 _nome = f'{_collaborator_date["nome"]}'
                 collaborator.options.append(ft.dropdown.Option(text= _nome, key=_collaborator_id))
         
-        self.product_choose = createDropdown("Escolha outro produto", self.func2)
+        self.product_choose = createDropdown("Escolha outro produto", self.func2, False)
         self.product_choose2 = createDropdown("Escolha outro produto", self.func2, False)
         self.product_choose3 = createDropdown("Escolha outro produto", self.func2, False)
         self.product_choose4 = createDropdown("Escolha outro produto", self.func2, False)
@@ -138,7 +134,9 @@ class UserWidget(ft.Container):
             
                 self.product_dict[_product_id] = _product_date
             
-        self.price = createInputTextField("Preço total", default_value=self.price_service)
+        self.price = createInputTextField("Preço total",set_visible=False)
+
+        self.button_finish = createButtonWithVisibility("Cadastrar atendimento",visible=False, func=self.func)
 
         self.content = self.build()
 
@@ -147,14 +145,7 @@ class UserWidget(ft.Container):
             horizontal_alignment="center",
             controls=[
                 createTitle(self.title),
-                ft.Column(
-                    spacing=12,
-                    controls=[
-                        createInputTextField("Nome no agendamento!", default_value=self.name, set_read_only=True),
-                        createInputTextField("Telefone no agendamento!", default_value=self.phone, set_read_only=True),
-                        createInputTextField("Data e hora!", default_value=self.data_time, set_read_only=True),
-                    ],
-                ),
+                self.day_choose,
                 self.collaborator_choose,
                 self.service_choose,
                 self.service_choose2,
@@ -166,7 +157,7 @@ class UserWidget(ft.Container):
                 self.product_choose3,
                 self.product_choose4,
                 self.product_choose5,
-                createSubTitle("Preço total"),
+                createSubTitle("Preço total",set_visible=False),
                 ft.Column(
                     spacing=0,
                     controls=[
@@ -174,36 +165,56 @@ class UserWidget(ft.Container):
                     ],
                 ),
                 ft.Container(padding=3),
-                createElevatedButton("Finalizar agendamento", self.func),
+                self.button_finish,
                 createElevatedButton("Voltar", self.func3),
+                self.date_picker,
             ],
         )
     
-async def view_finish_scheduling(page: ft.Page):
+async def view_register_finish_scheduling(page: ft.Page):
 
     stored_user = await loadStoredUser(page)
-    stored_scheduling = await loadSchedulingFinish(page)
     # Se não possuir user armazenado retorna para tela home
     if stored_user is None or stored_user['funcaoID'] == "cliente":
         page.go("/")
         view = ft.View()
         return view
     
-    if stored_scheduling is None:
-        page.go("/")
-        view = ft.View()
-        return view
-
     db = get_firestore_client()
     service_ref = db.collection("servico").stream()
-    id_scheduling = list(stored_scheduling.keys())[0]
+    
+    data_formatada = None
 
     product_ref = db.collection("produto").stream()
     collaborator_ref = db.collection("colaborador").stream()
 
-    list_services_select = list()
     list_products_select = list()
-  
+    list_services_select = list()
+    
+    async def on_date_change(e):
+        
+        selected_date = e.control.value
+        data_objeto = datetime.datetime.strptime(str(selected_date), '%Y-%m-%d %H:%M:%S')
+        nonlocal data_formatada
+        # Agora, formate a data no formato 'dia-mes-ano'
+        data_formatada = data_objeto.strftime('%d-%m-%Y')    
+        
+        price_page = _scheduling_.content.controls[13]
+        collaborator_select = _scheduling_.collaborator_choose
+        service_select = _scheduling_.service_choose
+        product_select = _scheduling_.product_choose
+        text_price = _scheduling_.price
+        button_finish = _scheduling_.button_finish
+        
+        text_price.content.visible = True
+        price_page.visible = True
+        collaborator_select.visible = True
+        service_select.visible = True
+        product_select.visible = True
+        button_finish.visible = True
+        
+        await _scheduling_.update_async()
+
     def adicionar_dicionario(key, dicionario, lista):
         if key in dicionario and key != "Nenhum":
             produto = dicionario[key]
@@ -220,7 +231,7 @@ async def view_finish_scheduling(page: ft.Page):
                 adicionar_dicionario(key, dicionario, lista)
         return total
 
-    async def widget_visible(e=None):
+    async def widget_visible(e):
         # Obtendo referência dos widgets de serviço e produto
         service_selects = [
             _scheduling_.service_choose,
@@ -261,33 +272,32 @@ async def view_finish_scheduling(page: ft.Page):
 
         if checks_fields():
             # Obtendo referencia dos widget
+            # Obtendo valores para salvar no sistema
             collaborator_id = _scheduling_.collaborator_choose.content.value
-            service_id = _scheduling_.service_choose.content.value
-            name_service = _scheduling_.service_dict[service_id]["nome"]
             price_services = float(_scheduling_.soma_servico)
             price_products = float(_scheduling_.soma_produto)
-            price_total = float(str(_scheduling_.price.content.value).replace(',', "."))
-        
-            discount = (price_services + price_products) - price_total
-
-            finish = scheduling_db.FinishScheduling(
-                id_scheduling,
+            price_final = float(
+                str(
+                    _scheduling_.price.content.value
+                    ).replace(',', "."))
+            discount = (price_services + price_products) - price_final
+            
+            create = scheduling_db.CreateService(
                 collaborator_id,
-                name_service,
-                service_id,
+                data_formatada,
                 list_services_select,
                 list_products_select,
                 price_services,
                 price_products,
                 discount,
-                price_total)
-        
-            finish.finish_scheduling()
-            texto = "Agendamento finalizado!"
+                price_final)
+            
+            create.finish_service()
+            texto = "Atendimento cadastrado!"
             await transition.main(page, texto, None)
 
-    def update_price():    
-         # Campo preço na tela
+    def update_price():
+        # Campo preço na tela
         price_page = _scheduling_.price.content
 
         # Atualizar o valor total
@@ -322,19 +332,18 @@ async def view_finish_scheduling(page: ft.Page):
         except ValueError:
             return False
 
-    async def back_button_(e):
+    async def back_button(e):
         page.go("/menu")
 
     _scheduling_ = UserWidget(
-        "Finalizar agendamento!",
-        id_scheduling,
-        stored_scheduling,
+        "Cadastrar Atendimento!",
         product_ref,
         service_ref,
         collaborator_ref,
         finish_scheduling,
         widget_visible,
-        back_button_,
+        back_button,
+        on_date_change,
     )
     
     return _scheduling_

@@ -103,7 +103,7 @@ async def view_menu_box(page: ft.Page):
         return view
     
     async def _create_servico(e):
-        pass
+        page.go('/cadastrar-atendimento')
         
     async def _create_expenses(e):
         page.go('/cadastrar-despesa')

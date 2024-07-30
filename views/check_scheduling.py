@@ -111,7 +111,6 @@ async def view_check_scheduling(page: ft.Page):
             data_scheduling = {}
         data_scheduling.clear()
         data_scheduling[id] = row_data
-        print(data_scheduling)
         # dialog.content.controls = [flet.Text(f"{key}: {value}") for key, value in row_data.items()]
         dialog.content.controls = [
             ft.Text(f"Data: {row_data['data']}"),
@@ -293,103 +292,6 @@ async def view_check_scheduling(page: ft.Page):
         await _scheduling_.data_table.update_async()
         _scheduling_.no_scheduling.visible = True
         await _scheduling_.no_scheduling.update_async()
-
-    # async def _on_date_change(e=None):
-    #     if e:
-    #         selected_date = e.control.value
-    #     else:
-    #         selected_date = _scheduling_.date_picker.content.value
-        
-    #     collaborator_choose = _scheduling_.collaborator_choose.content
-    #     data_table = _scheduling_.data_table.content
-    #     data_table.controls[0].rows.clear()
-    #     await data_table.update_async()
-
-    #     data_objeto = datetime.datetime.strptime(str(selected_date), '%Y-%m-%d %H:%M:%S')
-    #     data_formatada = data_objeto.strftime('%d-%m-%Y')
-        
-    #     agendamentos_ref = db.collection("agendamentos")
-    #     query = agendamentos_ref.where(filter=FieldFilter('data', '==', data_formatada)
-    #                                 ).where(filter=FieldFilter("colaborador_id", "==", collaborator_choose.value))
-    #     agendamentos = query.stream()
-        
-    #     lista_agendamentos = list(agendamentos)
-
-    #     def sort_key(agendamento):
-    #         agenda = agendamento.to_dict()
-    #         status = agenda.get('status_agendamento', 'N/A')
-    #         horario = agenda.get('horario', '23:59')
-            
-    #          # Prioriza agendamentos com horário e status "Em andamento"
-    #         if 'horario' in agenda and status == "Em andamento":
-    #             return (0, horario)
-    #         # Agendamentos com horário e status "Concluido" vêm depois
-    #         elif 'horario' in agenda and status == "Concluido":
-    #             return (1, horario)
-    #         # Agendamentos sem horário e com status "Concluido" vêm antes dos cancelados
-    #         elif 'horario' not in agenda and status == "Concluido":
-    #             return (2, horario)
-    #         # Agendamentos cancelados vêm por último
-    #         elif status == "Cancelado":
-    #             return (3, horario)
-    #         # Agendamentos sem horário e sem status "Em andamento" ou "Concluido" vêm por último
-    #         else:
-    #             return (4, horario)
-
-
-    #     lista_agendamentos.sort(key=sort_key)
-
-    #     if len(lista_agendamentos) != 0:
-    #         _scheduling_.data_table.visible = True
-    #         await _scheduling_.data_table.update_async()
-    #         _scheduling_.no_scheduling.visible = False
-    #         await _scheduling_.no_scheduling.update_async()
-    #         for agendamento in lista_agendamentos:
-    #             agenda_id = agendamento.id
-    #             agenda = agendamento.to_dict()
-    #             if agenda['status_agendamento'] == "Em andamento":
-    #                 data = agenda.get('data', 'N/A')
-    #                 hora = agenda.get('horario', 'N/A')
-    #                 data_hora = data + " as " + hora
-    #                 data_table.controls[0].rows.append(ft.DataRow(cells=[
-    #                     ft.DataCell(ft.Text(data_hora, text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                     ft.DataCell(ft.Text(agenda['status_agendamento'], text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                     ft.DataCell(ft.Text(agenda['nome'], text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                     ft.DataCell(ft.Text(agenda['nome_servico'], text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                 ], on_select_changed=lambda e, agenda=agenda, agenda_id=agenda_id: show_details(agenda, agenda_id)))
-    #                 dict_agendamento[agenda_id] = agenda
-    #                 await data_table.update_async()
-    #             elif agenda['status_agendamento'] == "Concluido" or agenda['status_agendamento'] == "Cancelado":
-    #                 data = agenda.get('data', 'N/A')
-    #                 hora = agenda.get('horario', 'N/A')
-    #                 nome_servico = agenda.get('nome_servico', False)
-                    
-    #                 # Verifica se 'nome_servico' não existe e busca no primeiro item do array 'servicos'
-    #                 if not nome_servico:
-    #                     servicos = agenda.get('servicos', [])
-    #                     if servicos and isinstance(servicos, list) and len(servicos) > 0:
-    #                         nome_servico = servicos[0].get('nome', 'N/A')
-    #                     else:
-    #                         nome_servico = 'N/A'
-                    
-    #                 data_hora = data + " as " + hora
-    #                 data_table.controls[0].rows.append(ft.DataRow(cells=[
-    #                     ft.DataCell(ft.Text(data_hora, text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                     ft.DataCell(ft.Text(agenda['status_agendamento'], text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                     ft.DataCell(ft.Text(agenda.get('nome', 'N/A'), text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                     ft.DataCell(ft.Text(nome_servico, text_align="center", weight="bold", color=COLOR_TEXT_IN_FIELD)),
-    #                 ]))
-    #                 await data_table.update_async()
-    #         if len(data_table.controls[0].rows) == 0:
-    #             _scheduling_.data_table.visible = False
-    #             await _scheduling_.data_table.update_async()
-    #             _scheduling_.no_scheduling.visible = True
-    #             await _scheduling_.no_scheduling.update_async()
-    #     else:
-    #         _scheduling_.data_table.visible = False
-    #         await _scheduling_.data_table.update_async()
-    #         _scheduling_.no_scheduling.visible = True
-    #         await _scheduling_.no_scheduling.update_async()
     
     async def _back_button(e):
         page.go('/menu')
@@ -404,17 +306,3 @@ async def view_check_scheduling(page: ft.Page):
     )
     
     return _scheduling_
-    _scheduling_main = createMainColumn(page)
-    _scheduling_main.content.controls.append(ft.Container(padding=0))
-    _scheduling_main.content.controls.append(_scheduling_)
-
-    view = ft.View(
-        route='/verificar-agendamento',
-        horizontal_alignment="center",
-        vertical_alignment="center",
-        controls=[
-            _scheduling_main,
-        ]
-    )
-
-    return view

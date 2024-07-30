@@ -169,24 +169,10 @@ async def view_check_report_monthly(page: ft.Page):
         page.go('/menu')
 
     _report_ = UserWidget(
-        "Receitas colaborador!",
+        "Receitas estabelecimento!",
         "Voltar",
         _on_date_change,
         _back_button,
     )
     
     return _report_
-    _scheduling_main = createMainColumn(page)
-    _scheduling_main.content.controls.append(ft.Container(padding=0))
-    _scheduling_main.content.controls.append(_report_)
-
-    view = ft.View(
-        route='/verificar-agendamento',
-        horizontal_alignment="center",
-        vertical_alignment="center",
-        controls=[
-            _scheduling_main,
-        ]
-    )
-
-    return view

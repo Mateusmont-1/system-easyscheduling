@@ -199,7 +199,7 @@ async def view_check_report_monthly_expense(page: ft.Page):
         page.go('/menu')
 
     _report_ = UserWidget(
-        "Receitas colaborador!",
+        "Verificar despesas!",
         "Voltar",
         _on_date_change,
         _back_button,
