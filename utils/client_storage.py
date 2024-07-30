@@ -181,7 +181,7 @@ async def removeExpenseEdit(page: ft.Page):
     if expense is not None:
         await page.client_storage.remove_async(f"expense{FLET_PATH}")
 
-async def loadCategoryEdit(page:ft.page):
+async def loadExpenseEdit(page:ft.page):
     encrypt_expense = await getExpenseEdit(page)
     # Se nao possuir usuario autenticado
     if encrypt_expense is None:

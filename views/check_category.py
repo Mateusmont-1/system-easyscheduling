@@ -101,7 +101,6 @@ async def view_check_category(page: ft.Page):
             data_category = {}
         data_category.clear()
         data_category[id] = row_data
-
         if row_data['ativo']:
             texto = "Sim"
         else:
