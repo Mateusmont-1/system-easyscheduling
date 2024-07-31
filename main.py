@@ -42,6 +42,7 @@ from views.check_expense import view_check_expense
 from views.create_expense import view_create_expense
 from views.edit_expense import view_edit_expense
 from views.register_finish_scheduling import view_register_finish_scheduling
+from views.not_found import view_not_found
 
 # Dicionário de rotas
 ROUTES = {
@@ -110,12 +111,19 @@ async def main(page: ft.Page):
                     vertical_alignment="center",
                     controls=[main_column]))
             else:
-                page.views.append(ft.View(route=route, controls=[]))
+                pass
+                page.title = "Página não encontrada"
+        # Caso não
         else:
             page.title = "Página não encontrada"
-            # Aqui você pode adicionar uma função para uma página 404, se desejar
-            # page.views.append(await view_not_found(page))
-
+            view_content = await view_not_found(page)
+            main_column.content.controls.clear()
+            main_column.content.controls.append(view_content)
+            page.views.append(ft.View(route="/not-found",
+                    horizontal_alignment="CENTER",
+                    vertical_alignment="CENTER",
+                    controls=[main_column]))
+            
         page.update()
 
     page.on_route_change = route_change
