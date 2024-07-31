@@ -1,0 +1,19 @@
+services:
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sistema_exemplo
+    restart: always
+    ports:
+      - "8081:8080"
+    volumes:  # Adicionado para montar a pasta logs
+      - ./logs:/app/logs
+    networks:
+      - my_network
+    env_file:  # Adicionado para carregar variáveis de ambiente de um arquivo .env
+      - .env
+
+networks:
+  my_network:
+    external: true
