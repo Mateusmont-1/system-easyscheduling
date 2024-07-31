@@ -14,7 +14,8 @@ WORKDIR /app
 # exceto a pasta venv
 COPY main.py /app/
 COPY assets /app/assets/
-COPY app /app/app/
+COPY utils /app/utils/
+COPY views /app/views/
 COPY requirements.txt /app/
 
 # Instale as dependências Python
