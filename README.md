@@ -98,6 +98,8 @@ Para instalar e executar este projeto, siga os passos abaixo:
       URL_MAPS=seu_url_google_maps
 
       FLET_PATH=/sistema_exemplo
+
+      MY_APP_SECRET_KEY=seu_id_para_criptografia
       
       COLOR_BACKGROUND_PAGE=#303030
       COLOR_BACKGROUND_CONTAINER=#0F0F0F
