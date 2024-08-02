@@ -166,3 +166,13 @@ logs/
 docker-compose.yml
 ./assets
 /assets
+assets/favicon.png
+assets/icon.png
+assets/icons/apple-touch-icon-192.png
+assets/icons/icon-192.png
+assets/icons/icon-512.png
+assets/icons/icon-maskable-192.png
+assets/icons/icon-maskable-512.png
+assets/icons/icon-touch-icon-192.png
+docker-compose.yml
+.env.save

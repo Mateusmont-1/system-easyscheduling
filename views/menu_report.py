@@ -97,7 +97,7 @@ async def view_menu_report(page: ft.Page):
         view = ft.View()
         return view
     
-    elif stored_user['funcaoID'] != "administrador":
+    elif stored_user['funcaoID'] == "cliente":
         page.go("/menu")
         view = ft.View()
         return view
