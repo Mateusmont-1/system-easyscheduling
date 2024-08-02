@@ -126,7 +126,7 @@ Para instalar e executar este projeto, siga os passos abaixo:
 
 2. Navegue até o diretório do projeto:
     ```bash
-    cd sistema-de-barbearia
+    cd system-easyscheduling
     ```
 
 3. Configure suas credenciais do Firestore e configurações do sistema:
