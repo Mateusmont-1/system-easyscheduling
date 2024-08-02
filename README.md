@@ -1,4 +1,6 @@
-# Sistema de Barbearia
+# Sistema de EasyScheduling
+
+  ![Tela inicial](assets/sistema-easyscheduling.png)
 
 ## Descrição
 
@@ -11,6 +13,7 @@ Este é um projeto de um sistema de barbearia desenvolvido em Python, utilizando
   - Cadastro de nome e telefone no Firestore.
   - Salvamento dos dados de usuário no Firestore.
   - Envio de e-mail para validar o cadastro ao sistema.
+  - Alterar senha cadastrada
   - Auto-login com Token.
 
 - **Agendamentos:**
