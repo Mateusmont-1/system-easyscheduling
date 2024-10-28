@@ -19,5 +19,5 @@ SECRET_KEY = os.getenv("MY_APP_SECRET_KEY")
 FLET_PATH = os.getenv("FLET_PATH")
 IMG_LOGO = "icon.png"
 
-# API_URL = "http://api-cache-firestore:8000"
-API_URL = "http://localhost:8000"
+API_URL = "http://api-cache-firestore:8000"
+# API_URL = "http://localhost:8000"
