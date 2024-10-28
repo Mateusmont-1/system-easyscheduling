@@ -3,7 +3,7 @@ import datetime
 import os
 
 from utils.config import COLOR_BACKGROUND_PAGE, FLET_PATH
-from utils.interface import createMainColumn, page_resize_on_event
+from utils.interface import createMainColumn, load_dashboard_data
 from views.home import view_home
 from views.register_client import view_register_client
 from views.forget_password import view_forget_password
@@ -43,6 +43,9 @@ from views.create_expense import view_create_expense
 from views.edit_expense import view_edit_expense
 from views.register_finish_scheduling import view_register_finish_scheduling
 from views.not_found import view_not_found
+from views.teste_view import view_teste
+
+from utils.cache_utils import register_barbearia, get_colaborador_cache
 
 # Dicionário de rotas
 ROUTES = {
@@ -84,6 +87,7 @@ ROUTES = {
     "/cadastrar-despesa": ("Cadastrar despesa", view_create_expense),
     "/editar-despesa": ("Editar despesa", view_edit_expense),
     "/cadastrar-atendimento": ("Cadastrar atendimento", view_register_finish_scheduling),
+    "/teste": ("Tela teste", view_teste),
 }
 
 async def main(page: ft.Page):
@@ -92,6 +96,8 @@ async def main(page: ft.Page):
     page.theme_mode = "dark"
 
     main_column = createMainColumn(page)
+
+    result = await register_barbearia()
     
     async def route_change(event: ft.RouteChangeEvent):
         page.views.clear()
@@ -110,6 +116,7 @@ async def main(page: ft.Page):
                     horizontal_alignment="center",
                     vertical_alignment="center",
                     controls=[main_column]))
+                
             else:
                 pass
                 page.title = "Página não encontrada"

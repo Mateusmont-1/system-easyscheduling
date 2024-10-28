@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
-load_dotenv()
 
+load_dotenv()
 
 COLOR_BACKGROUND_PAGE = os.getenv("COLOR_BACKGROUND_PAGE")        # Fundo da página, rosa claro
 COLOR_BACKGROUND_CONTAINER = os.getenv("COLOR_BACKGROUND_CONTAINER")   # Contêineres, branco
@@ -18,3 +18,6 @@ URL_MAPS = os.getenv("URL_MAPS")  # URL para os mapas
 SECRET_KEY = os.getenv("MY_APP_SECRET_KEY")
 FLET_PATH = os.getenv("FLET_PATH")
 IMG_LOGO = "icon.png"
+
+# API_URL = "http://api-cache-firestore:8000"
+API_URL = "http://localhost:8000"
