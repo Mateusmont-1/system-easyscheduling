@@ -255,7 +255,9 @@ async def view_check_scheduling(page: ft.Page):
         for agendamento in lista_agendamentos:
             agenda_id = agendamento.id
             agenda = agendamento.to_dict()
-            await append_scheduling_row(agenda, agenda_id, data_table)
+            # Verifica se é um agendamento ou um atendimento manual
+            if agenda.get('nome', None):
+                await append_scheduling_row(agenda, agenda_id, data_table)
 
         if not data_table.controls[0].rows:
             await display_no_scheduling()

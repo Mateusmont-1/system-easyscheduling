@@ -34,7 +34,7 @@ class UserWidget(ft.Container):
         self.func2 = func2
 
         self.data_table = createDataTable(list_columns=["Nome colaborador", "Permitir agendamento"])
-        self.no_scheduling = createTitle("Não possui serviços", False)
+        self.no_scheduling = createTitle("Não possui colaborador", False)
 
         for colaborador_ in self.collaborator_ref:
             colaborador_id = colaborador_.id

@@ -211,13 +211,15 @@ async def view_finish_scheduling(page: ft.Page):
 
     def atualizar_visibilidade_widgets(widgets, dicionario, lista):
         total = 0
-        for i in range(len(widgets) - 1):
+        for i in range(len(widgets)):
             if widgets[i].content.value:
                 key = widgets[i].content.value
-                widgets[i + 1].visible = True
-                widgets[i + 1].update()
+                if i < len(widgets) - 1:
+                    widgets[i + 1].visible = True
+                    widgets[i + 1].update()
                 total += dicionario[key]['preco']
                 adicionar_dicionario(key, dicionario, lista)
+                print(lista)
         return total
 
     async def widget_visible(e=None):
