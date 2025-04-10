@@ -54,7 +54,7 @@ class UserWidget(ft.Container):
         self.day_choose = createCallDatePicker("Escolha o dia novamente", self.date_picker,set_visible=True)
         self.hour_choose = createDropdown("Escolha o Hórario", self.func2, False)
         self.collaborator_choose = createDropdown("Escolha o(a) atendente", None, False)
-        self._register = createElevatedButton("Realiazar agendamento", self.func3)
+        self._register = createElevatedButton("Atualizar agendamento", self.func3)
         self._back_button = createElevatedButton("Voltar", self.func4)
 
         self.content = self.build()
